@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ story.title }} - Adventure Forge</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500;700&family=Manrope:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  </head>
+  <body class="play-body">
+    <div class="bg-orb orb-a"></div>
+    <div class="bg-orb orb-b"></div>
+
+    <main class="play-wrap panel">
+      <header class="play-header">
+        <p class="eyebrow">Now Playing</p>
+        <h1>{{ story.title }}</h1>
+        {% if story.author %}<p>By {{ story.author }}</p>{% endif %}
+      </header>
+
+      <section id="playScene" class="play-scene"></section>
+      <section id="playChoices" class="play-choices"></section>
+
+      <div class="button-row">
+        <button id="restartBtn" class="btn">Restart Story</button>
+        <a href="/" class="btn ghost">Back to Builder</a>
+      </div>
+    </main>
+
+    <script id="storyData" type="application/json">{{ story | tojson }}</script>
+    <script src="{{ url_for('static', filename='play.js') }}"></script>
+  </body>
+</html>

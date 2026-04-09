@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adventure Forge</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500;700&family=Manrope:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  </head>
+  <body>
+    <div class="bg-orb orb-a"></div>
+    <div class="bg-orb orb-b"></div>
+
+    <header class="hero">
+      <p class="eyebrow">Choose Your Own Adventure Maker</p>
+      <h1>Adventure Forge</h1>
+      <p class="hero-copy">
+        Design branching stories visually. Build scenes, connect choices, save your project,
+        and share a playable link.
+      </p>
+    </header>
+
+    <main class="layout">
+      <section class="panel project-panel">
+        <h2>Project</h2>
+        <div class="field">
+          <label for="storyTitle">Story Title</label>
+          <input id="storyTitle" type="text" placeholder="The Clocktower Mystery" />
+        </div>
+        <div class="field">
+          <label for="storyAuthor">Author</label>
+          <input id="storyAuthor" type="text" placeholder="Your name" />
+        </div>
+        <div class="field">
+          <label for="storyDescription">Description</label>
+          <textarea id="storyDescription" rows="3" placeholder="A short pitch for your story..."></textarea>
+        </div>
+
+        <div class="button-row">
+          <button id="newSceneBtn" class="btn accent">Add Scene</button>
+          <button id="saveBtn" class="btn">Save Story</button>
+        </div>
+
+        <div class="field">
+          <label for="savedStories">Saved Stories</label>
+          <select id="savedStories">
+            <option value="">Choose a saved story...</option>
+          </select>
+        </div>
+
+        <div class="button-row">
+          <button id="loadBtn" class="btn">Load</button>
+          <button id="exportBtn" class="btn">Export JSON</button>
+        </div>
+
+        <div class="field">
+          <label for="importJson">Import JSON</label>
+          <textarea id="importJson" rows="5" placeholder='Paste full story JSON here and click "Import JSON"'></textarea>
+        </div>
+        <button id="importBtn" class="btn">Import JSON</button>
+
+        <p id="status" class="status" aria-live="polite"></p>
+
+        <div id="playLinkBox" class="play-link-box hidden">
+          <p>Your playable story:</p>
+          <a id="playLink" href="#" target="_blank" rel="noopener">Open Story</a>
+        </div>
+      </section>
+
+      <section class="panel editor-panel">
+        <div class="editor-header">
+          <h2>Scenes</h2>
+          <p>Pick a scene, write content, and add choices leading to other scenes.</p>
+        </div>
+        <div id="sceneList" class="scene-list"></div>
+      </section>
+    </main>
+
+    <template id="sceneTemplate">
+      <article class="scene-card">
+        <div class="scene-card-header">
+          <h3 class="scene-label"></h3>
+          <button class="btn danger small delete-scene" type="button">Delete Scene</button>
+        </div>
+
+        <div class="field two-col">
+          <div>
+            <label>Scene ID</label>
+            <input class="scene-id" type="text" placeholder="forest_path" />
+          </div>
+          <div>
+            <label>Scene Title</label>
+            <input class="scene-title" type="text" placeholder="At the Forest Path" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Scene Content</label>
+          <textarea class="scene-content" rows="5" placeholder="Write what the player reads in this scene..."></textarea>
+        </div>
+
+        <div class="field">
+          <label>Choices</label>
+          <div class="choice-list"></div>
+          <button class="btn small add-choice" type="button">Add Choice</button>
+        </div>
+
+        <div class="field">
+          <label>Set as Start Scene</label>
+          <input class="start-scene" type="radio" name="start-scene" />
+        </div>
+      </article>
+    </template>
+
+    <template id="choiceTemplate">
+      <div class="choice-row">
+        <input class="choice-text" type="text" placeholder="Choice text" />
+        <input class="choice-target" type="text" placeholder="target_scene_id" />
+        <button class="btn danger small delete-choice" type="button">Remove</button>
+      </div>
+    </template>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+  </body>
+</html>
